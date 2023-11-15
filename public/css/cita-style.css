@@ -1,0 +1,197 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+  height: 100vh;
+  color: black;
+}
+
+.all-container {
+    /* width: 100vw;
+    height: 100vh; */
+    background-color: var(--aquaBright-body-color);
+    display: grid;
+
+    padding-top: 1em;
+    
+}
+
+.form-container{
+    /* padding: 1em 2em 0.25em 2em; */
+    border-radius: 15px;
+    width: 90%;
+    height: fit-content;
+    margin: auto auto 2em 4em;
+    
+    font-family: var(--menuFont);
+
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    column-gap: 2em;
+    justify-items: center;
+    justify-self: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+
+.citaFamiliar {
+    margin: 1em;
+}
+
+.citaFamiliar input{
+    box-shadow: none !important;
+}
+
+
+.motivo:first-child, .enfermedades:first-child{
+    margin: auto;
+}
+
+.motivo>textarea, .enfermedades>textarea{
+    font-family: var(--bodyFont);
+}
+
+#idUsuario{
+    visibility: none;
+}
+
+textarea {
+    font-family: var(--bodyFont);
+    padding: 1em;
+    display: flex;
+    text-align: justify;
+    font-size: 1.5em;
+    border-radius: 15px;
+    outline: none;
+    border: 1.5px solid black;
+    box-shadow: 3px 3px 0;
+    width: 20em;
+    height: 5em;
+    max-height: 10em;
+}
+
+textarea:focus {
+    transition: 150ms all;
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+
+input:not(.submit input), select{
+    transition: 350ms all;
+    padding: 0.5em 1em ;
+    font-size: 1.05em;
+    font-family: var(--bodyFont);
+    border: 1.5px solid black;
+    outline: none;
+    border-radius: 15px;
+    box-shadow: 3px 3px 0px;
+    text-align: center;
+}
+
+input:focus:not(.submit input) {
+    transition: 150ms all;
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+
+.fecha, .peso, .altura, .perfil, .especialidad-medica, .doctor {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-items: center;
+    text-align: center;
+    font-size: 1.05em;
+}
+
+.fecha > * {
+    text-align: center;
+}
+
+
+
+.perfil select, option, .especialidad-medica select, option, .doctor select, option {
+    font-size: 1.05em;
+    padding: 0.5em;
+    border-radius: 15px;
+    border: 1.5px solid black;
+    outline: none;
+    text-align: center;
+    font-family: var(--bodyFont);
+    background-color: var(--background-color);
+    box-shadow: 3px 3px 0;
+
+}
+
+.submit {
+    display: grid;
+    width: 100%;
+    margin: 3em;
+    justify-content: center;
+    grid-area: 5 / 2;
+}
+
+
+.submit button {
+    border-radius: 5px;
+    width: 15em;
+    height: 3.5em;
+    font-family: var(--menuFont);
+    box-shadow: 3px 3px 0px black;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.submit button:hover{
+    transition: 350ms ease-in;
+    background-color: rgb(184, 184, 184);
+}
+
+.submit button:active {
+    transition: 150ms ease-in;
+    border: 0;
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 485px) {
+    
+.perfil {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.submit {
+    display: grid;
+    width: 100%;
+    margin: 3em;
+    justify-content: center;
+    grid-area: auto;
+}
+
+}
+
+@media screen and (max-width: 759px) and (min-width: 481px) {
+    
+.perfil {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.submit {
+    display: grid;
+    width: 100%;
+    margin: 3em;
+    justify-content: center;
+    grid-area: auto;
+}
+}

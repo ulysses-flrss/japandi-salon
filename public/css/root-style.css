@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Nunito:wght@300&family=Quicksand:wght@700&family=Rubik&family=Rubik+Mono+One&family=Sacramento&family=Yanone+Kaffeesatz:wght@200&display=swap");
+
+:root {
+  /* Aquí definimos las variables */
+  --body-color: #978dbf;
+  --body-color2: #835092;
+  --body-color3: #b2dac6;
+  --menu-color: #65539d;
+  --table-header: rgb(120, 107, 171);
+
+  --red-body-color: #f14d60;
+  --darkRed-body-color: #bf003b;
+  --skinBright-body-color: #fec08c;
+  --skinDark-body-color: #da7f3d;
+  --icon-color: #1a1249;
+  --background-color: #e7e3ef;
+
+  --shadow-color: #1e1437;
+
+  --affair: #835092;
+
+  --santas-gray: #9b9db7;
+  --rum: #6a6588;
+
+
+  --font-size: 100%;
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+
+  --menuFont: "Quicksand", sans-serif;
+  --bienvenidaFont: "Rubik Mono One", sans-serif;
+  --bodyFont: "Nunito", sans-serif;
+  --extraFont: "Rubik", sans-serif;
+  --footerFont: "Yanone Kaffeesatz", sans-serif;
+  --register-welcome-font: "Sacramento", cursive;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--background-color) !important;
+  display: grid;
+  min-height: 100vh !important;
+  grid-template-rows: 1fr auto;
+  overflow-x: hidden;
+}
+
+.allContainer {
+  height: 100vh !important;
+  display: grid;
+  justify-content: center;
+  grid-row: 1fr 1fr;
+  grid-template-columns: auto;
+  grid-row-gap: 1em;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+.disenoBoton {
+  cursor: pointer;
+  margin: auto;
+  font-size: 1.1em;
+  border-radius: 50px !important;
+  border: 2px solid #1c3b2d;
+  outline: none;
+  padding: 0.75em;
+  font-family: var(--menuFont) !important;
+  box-shadow: 3px 6px 0px #1c3b2d;
+  transition: 250ms all;
+  background-color: #fff;
+}
+
+.disenoBoton:hover {
+  transition: 350ms all;
+  background-color: #ddd;
+}
+
+.disenoBoton:active {
+  font-size: 1.1em;
+  transform: translateY(5px);
+  transition: 350ms all ease-in-out;
+  box-shadow: 0px 0px 0px;
+  outline: none;
+  background-color: #b6b6b6;
+}

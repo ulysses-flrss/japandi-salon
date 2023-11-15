@@ -1,0 +1,133 @@
+
+table {
+    transition: 500ms all;
+    margin: 2em auto;
+    margin-left: 5em;
+    border-collapse: collapse;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align:middle;
+    background-color: var(--body-color) !important;
+}
+
+.table-button-container {
+    transition: 500ms all;
+    display: flex;
+    background-color: var(--body-color) !important;
+    border-radius: 15px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+#table1_button, #table2_button, #table3_button {
+    transition: 500ms all;
+    font-family: var(--menuFont);
+    text-decoration: none;
+    color: #000;
+    
+}
+
+#table1_button:hover, #table2_button:hover, #table3_button:hover {
+    transition: 500ms all;
+    color: var(--icon-color);
+}
+
+.table-select:hover {
+    transition: 500ms all;
+    /* font-size: 1.15em; */
+    transform: scale(1.10);
+}
+
+.button-container {
+    display: flex;
+    background-color: var(--body-color) !important;
+    border-radius: 15px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    column-gap: 15px;
+}
+
+#add-button {
+    border-radius: 15px ;
+    padding: 0 10px !important;
+}
+
+#add-button:hover  {    
+    transition: 300ms all;
+    transform: scale(1.15);
+}   
+
+.icon {
+    font-size: 2.25em !important;
+}
+
+.table-active {
+    transition: 500ms all;
+    padding: 10px 0;
+    /* background-color: var(--table-header) !important; */
+    color: #fff !important;
+    border-radius: 15px;
+
+}
+
+.tablaUsuarios {
+    width: 30%;
+}
+
+.tablaFamiliares {
+    width: 10%;
+}
+
+.users {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-items: center;
+    margin: auto auto 0.25rem auto
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    margin: 0.25em;
+}
+
+
+.focus {
+    
+    padding: 2rem;
+    margin:auto 0.25rem;
+    width: 15rem;
+    font-size: 1em;
+}
+
+
+
+
+th {
+    background-color: var(--table-header) !important;
+}
+
+th,  tr, td {
+    
+    padding: 1rem;
+    font-size: 1em;
+    font-family: var(--menuFont);
+}
+
+th:first-child {
+    border-radius:  15px 0 0 0 ;
+}
+
+th:last-child {
+    border-radius:  0 15px 0 0 ;
+}
+
+a {
+    text-decoration: none;
+}
