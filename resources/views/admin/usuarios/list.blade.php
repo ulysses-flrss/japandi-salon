@@ -62,8 +62,8 @@
                                 <a href="{{route('admin.usuario.show', ['id' => $recepcionista['codUsuario']])}}" title="Editar {{$recepcionista['codReservacion']}}">
                                     <i class="fa-solid fa-square-pen icon"></i>
                                 </a>
-                                <a href="{{route('usuario.destroy', ['id' => $recepcionista['codUsuario']])}}" title="Rechazar">
-                                    <i class="fa-solid fa-square-xmark icon"></i>
+                                <a href="#" class="delete_user_button" title="Eliminar">
+                                    <i class="fa-solid fa-square-xmark icon" data-user="{{$recepcionista}}"></i>
                                 </a>
                             </td>
                         </tr>
@@ -96,14 +96,23 @@
                                     <td>{{$cliente['apellidos']}}</td>
                                     <td>{{$cliente['telefono']}}</td>
                                     <td>{{$cliente['dui']}}</td>
-                                    <td>{{$cliente['numReservaciones']}}</td>
+                                    <td>
+                                        
+                                            <a href="{{route('reservacion.listByUser', ['id' => $cliente['codUsuario']])}}">
+                                                {{$cliente['numReservaciones']}}
+                                            </a>
+                                            
+                                        
+                                    </td>
                                     <td>
                                         <a href="{{route('admin.usuario.show', ['id' => $cliente['codUsuario']])}}" title="Editar {{$cliente['codUsuario']}}">
                                             <i class="fa-solid fa-square-pen icon"></i>
                                         </a>
-                                        <a href="{{route('usuario.destroy', ['id' => $cliente['codUsuario']])}}" title="Eliminar">
-                                            <i class="fa-solid fa-square-xmark icon"></i>
+                                        
+                                        <a href="#" class="delete_user_button" title="Eliminar">
+                                            <i class="fa-solid fa-square-xmark icon" data-user="{{$cliente}}"></i>
                                         </a>
+                                    
                                     </td>
                                     
                                 </tr>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('codCliente');
             $table->foreign('codCliente')->references('codUsuario')->on('usuarios');
             $table->date('fechaReservacion');
+            $table->time('horaReservacion');
             $table->enum('estado', ['Pendiente', 'Canjeado']);
             $table->string('justificacion');
             $table->timestamps();

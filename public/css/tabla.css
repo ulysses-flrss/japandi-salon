@@ -21,7 +21,7 @@ table {
     column-gap: 10px;
 }
 
-#table1_button, #table2_button, #table3_button {
+#table1_button, #table2_button, #table3_button, #table4_button {
     transition: 500ms all;
     font-family: var(--menuFont);
     text-decoration: none;
@@ -29,7 +29,7 @@ table {
     
 }
 
-#table1_button:hover, #table2_button:hover, #table3_button:hover {
+#table1_button:hover, #table2_button:hover, #table3_button:hover, #table4_button:hover {
     transition: 500ms all;
     color: var(--icon-color);
 }

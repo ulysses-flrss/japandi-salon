@@ -15,9 +15,26 @@ document.addEventListener("DOMContentLoaded", function () {
     let $table3_button = document.querySelector("#table3_button");
     ($table3_button)?$table3_button.addEventListener("click", changeTable):null;
 
+    let $table4_button = document.querySelector("#table4_button");
+    ($table4_button)?$table4_button.addEventListener("click", changeTable):null;
+
     let $select_button = document.querySelector("#select_button");
     ($select_button)?$select_button.addEventListener("change", selectButton):null;
     
+    let $delete_user_button = document.querySelectorAll(".delete_user_button");
+    ($delete_user_button)?$delete_user_button.forEach(function (element) {
+        element.addEventListener("click", deleteUser) 
+    }) :null;
+
+    let $cancel_button = document.querySelectorAll(".cancel_button");
+    ($cancel_button)?$cancel_button.forEach(function (element) {
+        element.addEventListener("click", cancelReservacion) 
+    }) :null;
+
+
+    
+
+
 
     function selectButton (e) {
         console.log(document.querySelector("#correo-input").attributes)
@@ -108,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function  logoutAlert(e) {
         e.preventDefault();
-        axios.get("/logout").then(function (response) {
+       
             Swal.fire({
                 title: "¿Desea cerrar sesión?",
                 icon: "question",
@@ -117,13 +134,65 @@ document.addEventListener("DOMContentLoaded", function () {
                 showConfirmButton: true,
                 showCancelButton: true,
             }).then(function (result) {
-                if (result.isConfirmed)
-                    window.location.href = "/login";    
+                if (result.isConfirmed){
+                    axios.get("/logout").then(function (response) {
+                        window.location.href = "/login";
+                    })
                     
-            });
-    })
+            }})
 
-    }  
+    }
+    
+    async function deleteUser (e) {
+        let usuario = JSON.parse(e.target.attributes[1].nodeValue)
+        console.log(usuario)
+        Swal.fire({
+            title: `¿Desea eliminar a ${usuario.nombres} ${usuario.apellidos}?`,
+            icon: "question",
+            text: "Se eliminará el usuario seleccionado",
+            timerProgressBar: true,
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                axios.delete(`/usuario/delete/${usuario.codUsuario}`).then(function (response) {
+                    if (response.data.codRol === 1) {
+                        window.location.href = "/admin/listUsuarios";
+                    } else if (response.data.codRol === 2) {
+                        window.location.href = "/recepcionista/listClientes";
+                    } else {
+                        window.location.href = "/login";
+                    }
+                })
+                
+            }})
+        }
+
+
+        async function cancelReservacion (e) {
+            let reservacion = JSON.parse(e.target.attributes[1].nodeValue)
+            console.log(reservacion)
+            Swal.fire({
+                title: `¿Desea cancelar la reservacion?`,
+                icon: "question",
+                text: "Se cambiará el estado a 'CANCELADA' seleccionado",
+                timerProgressBar: true, 
+                showConfirmButton: true,
+                showCancelButton: true,
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    axios.get(`/deny/${reservacion.codReservacion}`).then(function (response) {
+                        if (response.data.codRol === 1) {
+                            window.location.href = "/admin/listReservaciones";
+                        } else if (response.data.codRol === 2) {
+                            window.location.href = "/recepcionista/listReservaciones";
+                        } else {
+                            window.location.href = "/login";
+                        }
+                    })
+                    
+                }})
+            }
     
     
     function changeTable (e) {
@@ -157,6 +226,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector("#table2_button").classList.remove("table-active");
                     document.querySelector("#table3").style.display = "none";
                     document.querySelector("#table3_button").classList.remove("table-active");
+                    document.querySelector("#table4").style.display = "none";
+                    document.querySelector("#table4_button").classList.remove("table-active");
 
                 } else if (e.target.id == "table2_button") {
                     document.querySelector("#table1").style.display = "none";
@@ -165,13 +236,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector("#table2_button").classList.add("table-active");
                     document.querySelector("#table3").style.display = "none";
                     document.querySelector("#table3_button").classList.remove("table-active");
-                } else {
+                    document.querySelector("#table4").style.display = "none";
+                    document.querySelector("#table4_button").classList.remove("table-active");
+                } else if (e.target.id == "table3_button") {
                     document.querySelector("#table1").style.display = "none";
                     document.querySelector("#table1_button").classList.remove("table-active");
                     document.querySelector("#table2").style.display = "none";
                     document.querySelector("#table2_button").classList.remove("table-active");
                     document.querySelector("#table3").style.display = "block";
                     document.querySelector("#table3_button").classList.add("table-active");
+                    document.querySelector("#table4").style.display = "none";
+                    document.querySelector("#table4_button").classList.remove("table-active");
+                } else {
+                    document.querySelector("#table1").style.display = "none";
+                    document.querySelector("#table1_button").classList.remove("table-active");
+                    document.querySelector("#table2").style.display = "none";
+                    document.querySelector("#table2_button").classList.remove("table-active");
+                    document.querySelector("#table3").style.display = "none";
+                    document.querySelector("#table3_button").classList.remove("table-active");
+                    document.querySelector("#table4").style.display = "block";
+                    document.querySelector("#table4_button").classList.add("table-active");
                 }
             break;
 

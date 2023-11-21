@@ -13,8 +13,8 @@
                     <div class="form-container">
                         <div class="select-container field-container">
                             <label class="field-label" for="">Tipo de Usuario</label>
-                            <select name="codRol" id="select_button" class="select-input">
-                                <option selected value="2">Recepcionista</option>
+                            <input type="hidden" name="codRol" value="3">
+                            <select name="codRol" id="select_button" class="select-input" disabled>
                                 <option value="3">Cliente</option>
                             </select>
                         </div>
@@ -61,6 +61,7 @@
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
+                        
 
                         <div class="field-container" id="submit-container">
                             <input class="field-input" type="submit" id="submit-button" value="Registrar Recepcionista">
@@ -73,4 +74,16 @@
         </article>
     </main>
 
+    <script>
+            document.querySelectorAll(".recepcion-div").forEach(function (element) {
+                element.style.display = "none";
+                document.querySelector("#correo-input").removeAttribute("required",)
+                document.querySelector("#password-input").removeAttribute("required",)
+                document.querySelector("#submit-button").value = "Registrar Cliente"
+
+                document.querySelector(".form-container").style.gridTemplateColumns = "20% 20%"
+                document.querySelector(".select-container").style.gridColumn = "1 / 3"
+                document.querySelector("#submit-container").style.gridColumn = "1 / 3"
+            })
+    </script>
 @endsection

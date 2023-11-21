@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use function PHPUnit\Framework\isEmpty;
+
 class UsuarioController extends Controller
 {
     /**
@@ -21,7 +23,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombres' => 'required',
             'apellidos' => 'required',
-            'telefono' => 'regex:/^[0-9]{4}-[0-9]{4}$/',
+            'telefono' => 'regex:/^[0-9]{4}-[0-9]{4}$/|unique:usuarios,telefono',
             'dui' => 'regex:/^[0-9]{8}-[0-9]{1}$/|unique:usuarios,dui',
         ]);
         
@@ -81,9 +83,52 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'telefono' => 'regex:/^[0-9]{4}-[0-9]{4}$/',
+            'dui' => 'regex:/^[0-9]{8}-[0-9]{1}$/',
+        ]);
         
+        $usuario = Usuario::find($id);
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos = $request->apellidos;
+        $usuario->telefono = $request->telefono;
+        $usuario->dui = $request->dui;
+        $usuario->codRol = $request->codRol;
+        
+        
+        if($request->codRol == 2) {
+            $request->validate([
+                'correo' => 'required|email',
+                
+            ]);
+            $usuario->correo = $request->correo;
+            
+            if (trim($request->password) != "") {
+                $request->validate([
+                    'password' => 'required|min:8',
+                    
+                ]);
+
+                $usuario->password = Hash::make($request->password);
+            }
+            
+        } else {
+            $usuario->correo = NULL;
+            $usuario->password = NULL;
+        }
+        
+        $usuario->save();
+
+
+        if (Auth::user()->codRol == 1) {
+            return redirect()->route('admin.listUsuarios');
+        } else {
+            return redirect()->route('recepcionista.listClientes');
+        }
     }
 
     /**
@@ -94,10 +139,6 @@ class UsuarioController extends Controller
         $usuario = Usuario::find($id);
         $usuario->delete();
 
-        if (Auth::user()->codRol == 3) {
-            return redirect()->route('admin.listUsuarios');
-        } else {
-            return redirect()->route('recepcionista.listClientes');
-        }
+        return Response()->json(Auth::user()); 
     }
 }

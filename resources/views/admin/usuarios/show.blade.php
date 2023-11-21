@@ -59,10 +59,18 @@
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
+                        <div class="recepcion-div field-container">
+                            <label class="field-label" for="" style="text-align: center">Contraseña <br> <small> (dejar vacio si no se va cambiar) </small></label>
+                            <input class="field-input" type="password" id="password-input" name="password" value="">
+                            @error('password')
+                                <small class="error-message" style="text-align: center">*{{$message}}</small>
+                            @enderror
+                        </div>
+
                         
 
                         <div class="field-container" id="submit-container">
-                            <input class="field-input" type="submit" id="submit-button" value="Registrar Recepcionista">
+                            <input class="field-input" type="submit" id="submit-button" value="Modificar Recepcionista">
                         </div>
 
                     </div>
@@ -71,4 +79,21 @@
 
         </article>
     </main>
+
+    <script>
+            if (document.querySelector("#option-cliente").selected = "2") {
+                
+            
+                    document.querySelectorAll(".recepcion-div").forEach(function (element) {
+                    element.style.display = "none";
+                    document.querySelector("#correo-input").removeAttribute("required",)
+                    document.querySelector("#password-input").removeAttribute("required",)
+                    document.querySelector("#submit-button").value = "Modificar Cliente"
+
+                    document.querySelector(".form-container").style.gridTemplateColumns = "20% 20%"
+                    document.querySelector(".select-container").style.gridColumn = "1 / 3"
+                    document.querySelector("#submit-container").style.gridColumn = "1 / 3"
+                })
+            }
+        </script>
 @endsection

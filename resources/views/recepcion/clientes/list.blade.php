@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="" id="add-button">
-                <a href="{{route('admin.usuario.create')}}">
+                <a href="{{route('recepcionista.usuario.create')}}">
                     <i class="fa-solid fa-circle-plus icon"></i>
                 </a>
             </div>
@@ -40,6 +40,8 @@
                                 <th scope="col">Telefono</th>
                                 <th scope="col">DUI </th>
                                 <th scope="col">N° Reservaciones</th>
+                                <th scope="col">Acciones</th>
+                                
                                 
                             </tr>
                 
@@ -53,10 +55,19 @@
                                     <td>{{$cliente['telefono']}}</td>
                                     <td>{{$cliente['dui']}}</td>
                                     <td>
-                                        {{$cliente['numReservaciones']}}
+                                        <a href="{{route('reservacion.listByUser', ['id' => $cliente['codUsuario']])}}">
+                                            {{$cliente['numReservaciones']}}
+                                        </a>
                                         
                                     </td>
-                                    
+                                    <td>
+                                        <a href="{{route('recepcionista.cliente.show', ['id' => $cliente['codUsuario']])}}" title="Editar {{$cliente['codCliente']}}">
+                                            <i class="fa-solid fa-square-pen icon"></i>
+                                        </a>
+                                        <a href="#" title="Eliminar" class="delete_user_button">
+                                            <i class="fa-solid fa-square-xmark icon" data-user="{{$cliente}}"></i>
+                                        </a>
+                                    </td>
                                     
                                 </tr>
                             @endforeach

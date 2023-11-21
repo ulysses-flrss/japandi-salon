@@ -31,7 +31,7 @@
 
 
         <li class='bar-item' id='li-familiares' title='Familiares'>
-            <a href='{{route('login.logout')}}' id="button_logout" class='bar-link' >
+            <a href='#' id="button_logout" class='bar-link' >
 
                 <i class="fa-solid fa-user icon"></i>
                 <span class='link-text'>Cerrar Sesión</span>

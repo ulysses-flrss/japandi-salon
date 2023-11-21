@@ -7,7 +7,7 @@
 @section('content')
     <main class="all-container">
         <article>
-                <form action="{{route('reservacion.update', ['id' => $reservacion])}}" id="formularioE" method="POST">
+                <form action="{{route('reservacion.update', ['id' => $reservacion['codReservacion']])}}" id="formularioE" method="POST">
                     @csrf
                     <div class="form-container">
                         <div class="select-container field-container">

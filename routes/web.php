@@ -34,54 +34,62 @@ use Illuminate\Support\Facades\Route;
     Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
 
     // Aprobación y Reprobación de Reservaciones
-    Route::get('/approve/{id}', [ReservacionController::class, 'approve'])->name('reservacion.approve');
-    Route::get('/deny/{id}', [ReservacionController::class, 'deny'])->name('reservacion.deny');
+    Route::get('/approve/{id}', [ReservacionController::class, 'approve'])->name('reservacion.approve')->middleware('auth');
+    Route::get('/deny/{id}', [ReservacionController::class, 'deny'])->name('reservacion.deny')->middleware('auth');
 
     // Eliminar Usuario
-    Route::get('/usuario/delete/{id}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
+    Route::delete('/usuario/delete/{id}', [UsuarioController::class, 'destroy'])->name('usuario.destroy')->middleware('auth');
 
     // Eliminar Reservacion
 
     // Modificar Usuario
-    Route::put('/usuario/update/{id}', [UsuarioController::class, 'update'])->name('usuario.update');
+    Route::post('/usuario/update/{id}', [UsuarioController::class, 'update'])->name('usuario.update')->middleware('auth');
 
     // Modificar Reservacion
-    Route::put('/reservacion/update/{id}', [ReservacionController::class, 'update'])->name('reservacion.update');
+    Route::post('/reservacion/update/{id}', [ReservacionController::class, 'update'])->name('reservacion.update')->middleware('auth');
+
+    Route::get('/reservaciones/{id}', [ReservacionController::class, 'listByUser'])->name('reservacion.listByUser')->middleware('auth');
 
 
 //Admin 
     // Pagina Principal
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('auth');
+    Route::get('/admin/reservacionesPorDia', [AdminController::class, 'getReservacionPorDia'])->name('admin.reservacionesPorDia')->middleware('auth');
 
     // Listado de Usuarios
-    Route::get('/admin/listUsuarios', [AdminController::class, 'listUsuarios'])->name('admin.listUsuarios');
+    Route::get('/admin/listUsuarios', [AdminController::class, 'listUsuarios'])->name('admin.listUsuarios')->middleware('auth');
 
     //Listado de Reservaciones
-    Route::get('/admin/listReservaciones', [AdminController::class, 'listReservaciones'])->name('admin.listReservaciones');
+    Route::get('/admin/listReservaciones', [AdminController::class, 'listReservaciones'])->name('admin.listReservaciones')->middleware('auth');
 
     // Creación de Usuario (Recepcionista y Cliente)
-    Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
-    Route::get('/admin/reservacion/create', [AdminController::class, 'create_usuario'])->name('admin.usuario.create');
+    Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create')->middleware('auth');
+    Route::get('/admin/reservacion/create', [AdminController::class, 'create_usuario'])->name('admin.usuario.create')->middleware('auth');
     
-    // Modificación de Usuarios
-    Route::get('/admin/usuario/show/{id}', [UsuarioController::class, 'show'])->name('admin.usuario.show');
+    // Mostrar Usuario
+    Route::get('/admin/usuario/show/{id}', [UsuarioController::class, 'show'])->name('admin.usuario.show')->middleware('auth');
 
-    // Modificacion de reservaciones
-    Route::get('/admin/reservacion/show/{id}', [RecepcionistaController::class, 'show'])->name('admin.reservacion.show');
+    // Mostrar Reservacion
+    Route::get('/admin/reservacion/show/{id}', [AdminController::class, 'show'])->name('admin.reservacion.show')->middleware('auth');
 
 
 
 // Recepcionista
     // Pagina Principal
-    Route::get('/recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.index');
+    Route::get('/recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.index')->middleware('auth');
 
     // Listado de Clientes
-    Route::get('/recepcionista/listClientes', [RecepcionistaController::class, 'listClientes'])->name('recepcionista.listClientes');
+    Route::get('/recepcionista/listClientes', [RecepcionistaController::class, 'listClientes'])->name('recepcionista.listClientes')->middleware('auth');
 
     // Listado de Reservaciones
-    Route::get('/recepcionista/listReservaciones', [RecepcionistaController::class, 'listReservaciones'])->name('recepcionista.listReservaciones');
+    Route::get('/recepcionista/listReservaciones', [RecepcionistaController::class, 'listReservaciones'])->name('recepcionista.listReservaciones')->middleware('auth');
 
-    // Modificación de Reservaciones
-    Route::get('/recepcionista/show/{id}', [RecepcionistaController::class, 'show'])->name('recepcionista.reservacion.show');
+    // Mostrar Reservacion
+    Route::get('/recepcionista/reservacion/show/{id}', [RecepcionistaController::class, 'show'])->name('recepcionista.reservacion.show')->middleware('auth');
 
+    // Mostrar Cliente
+    Route::get('/recepcionista/cliente/show/{id}', [RecepcionistaController::class, 'show_cliente'])->name('recepcionista.cliente.show')->middleware('auth');
+
+    // Crear Cliente
+    Route::get('/recepcion/cliente/create', [RecepcionistaController::class, 'create'])->name('recepcionista.usuario.create')->middleware('auth');
     

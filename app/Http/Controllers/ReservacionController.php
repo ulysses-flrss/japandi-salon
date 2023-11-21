@@ -38,14 +38,14 @@ class ReservacionController extends Controller
     {
         
         
-        // $request->validate([
-        //     'codCliente' => 'required',
-        //     'fecha' => 'required|date',
-        //     'justififacion' => 'required|min:1',
-        // ]);   
+        $request->validate([
+            'codCliente' => 'required|not_in:0',
+            'fecha' => 'required|date|after_or_equal:today',
+            'justificacion' => 'required|min:1',
+        ]);   
 
         $reservacion = new Reservacion();
-        $reservacion->codCliente = $request->codUsuario;
+        $reservacion->codCliente = $request->codCliente;
         $reservacion->fechaReservacion = $request->fecha;
         $reservacion->horaReservacion = $request->hora;
         $reservacion->estado = 'Pendiente';
@@ -80,7 +80,33 @@ class ReservacionController extends Controller
 
     public function deny ($id) {
         $reservacion = Reservacion::find($id);
-        $reservacion->estado = 'Vencida';
+        $reservacion->estado = 'Cancelada';
+        $reservacion->save();
+
+        return Response()->json(Auth::user()); 
+
+    }
+
+
+    public function listByUser ($idCliente) {
+        $reservacionesByUser = Reservacion::join('usuarios', 'reservaciones.codCliente', '=', 'usuarios.codUsuario')
+            ->select('*')
+            ->where('codCliente', $idCliente)
+            ->orderBy('fechaReservacion', 'asc')
+            ->get();
+
+        return view('shared.reservacion-list-by-user', compact('reservacionesByUser'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $reservacion = Reservacion::find($id);
+        $reservacion->fechaReservacion = $request->fecha;
+        $reservacion->horaReservacion = $request->hora;
+        $reservacion->justificacion = $request->justificacion;
         $reservacion->save();
 
         if (Auth::user()->codRol == 2) {
@@ -90,32 +116,6 @@ class ReservacionController extends Controller
         } else {
             return redirect()->route('login.index');
         }
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservacion $reservacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservacion $reservacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Reservacion $reservacion)
-    {
-        $reservacion = Reservacion::find($request->id);
-        
     }
 
     /**

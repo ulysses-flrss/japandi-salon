@@ -8,45 +8,49 @@
     <main class="all-container">
         <article>
 
-                <form action="{{ route('usuario.store') }}" method="POST">
+                <form action="{{ route('usuario.update', ["id" => $usuario['codUsuario']]) }}" method="POST">
                     @csrf
                     <div class="form-container">
                         <div class="select-container field-container">
                             <label class="field-label" for="">Tipo de Usuario</label>
-                            <select name="codRol" id="select_button" class="select-input">
-                                <option selected value="2">Recepcionista</option>
-                                <option value="3">Cliente</option>
+                            <select name="codRol" id="select_button" class="select-input" disabled>
+                                @if($usuario['codRol'] == 2)
+                                    <option selected value="2">Recepcionista</option>
+                                    <input type="hidden" name="codRol" value="{{$usuario['codRol']}}">
+                                @else
+                                    <option selected value="3" id="option-cliente">Cliente</option>
+                                    <input type="hidden" name="codRol" value="{{$usuario['codRol']}}">
+                                @endif
                             </select>
                         </div>
                         <div class="field-container">
                             <label class="field-label" for="">Nombres*</label>
-                            <input class="field-input" type="text" name="nombres" value="{{old('nombres')}}">
+                            <input class="field-input" type="text" name="nombres" value="{{$usuario['nombres']}}">
                             @error('nombres')
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
                         <div class="field-container">
                             <label class="field-label" for="">Apellidos*</label>
-                            <input class="field-input" type="text" name="apellidos" value="{{old('apellidos')}}">
+                            <input class="field-input" type="text" name="apellidos" value="{{$usuario['apellidos']}}">
                             @error('apellidos')
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
                         <div class="field-container">
                             <label class="field-label" for="">Telefono*</label>
-                            <input class="field-input" type="text" name="telefono" value="{{old('telefono')}}">
+                            <input class="field-input" type="text" name="telefono" value="{{$usuario['telefono']}}">
                             @error('telefono')
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
                         <div class="field-container">
                             <label class="field-label" for="">DUI*</label>
-                            <input class="field-input" type="text" name="dui" value="{{old('dui')}}">
+                            <input class="field-input" type="text" name="dui" value="{{$usuario['dui']}}">
                             @error('dui')
                                 <small class="error-message" style="text-align: center">*{{$message}}</small>
                             @enderror
                         </div>
-
                         <div class="recepcion-div field-container">
                             <label class="field-label" for="">Correo*</label>
                             <input class="field-input" type="email" id="correo-input" name="correo" required value="{{old('correo')}}">
@@ -62,8 +66,9 @@
                             @enderror
                         </div>
 
+
                         <div class="field-container" id="submit-container">
-                            <input class="field-input" type="submit" id="submit-button" value="Registrar Recepcionista">
+                            <input class="field-input" type="submit" id="submit-button" value="Modificar Cliente">
                         </div>
 
                     </div>
@@ -73,4 +78,16 @@
         </article>
     </main>
 
+    <script>
+         document.querySelectorAll(".recepcion-div").forEach(function (element) {
+                    element.style.display = "none";
+                    document.querySelector("#correo-input").removeAttribute("required",)
+                    document.querySelector("#password-input").removeAttribute("required",)
+                    document.querySelector("#submit-button").value = "Modificar Cliente"
+
+                    document.querySelector(".form-container").style.gridTemplateColumns = "20% 20%"
+                    document.querySelector(".select-container").style.gridColumn = "1 / 3"
+                    document.querySelector("#submit-container").style.gridColumn = "1 / 3"
+                })
+    </script>
 @endsection

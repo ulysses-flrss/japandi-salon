@@ -93,4 +93,10 @@
     font-size: 1em;
     font-family: var(--menuFont);
 }
+
+.error-message {
+  font-family: var(--menuFont);
+  font-size: 1em;
+  padding: 5px;
+}
   
